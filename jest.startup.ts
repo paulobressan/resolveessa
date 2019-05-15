@@ -19,7 +19,7 @@ const beforeAllTests = () => {
         .then(() => {
             let admin = new User();
             admin.name = 'Admin';
-            admin.login = 'admintest'
+            admin.fone = '16993187409'
             admin.email = 'admin@email.com';
             admin.password = '12345678';
             admin.profiles = ['admin', 'user'];

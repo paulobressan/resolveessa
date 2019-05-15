@@ -33,7 +33,7 @@ class UsersRouter extends ModelRouter<User> {
     apply(application: express.Application) {
         application.get(this.basePath, authorize('user'), this.findByEmail, this.findAll)
         application.get(`${this.basePath}/:id`, authorize('user'), this.validateId, this.findById)
-        application.post(this.basePath, authorize('admin'), this.validateSchema(UsersSchemaSave), this.save)
+        application.post(this.basePath, this.validateSchema(UsersSchemaSave), this.save)
         application.post(`${this.basePath}/authenticate`, authenticate)
         application.put(`${this.basePath}/:id`, authorize('admin'), this.validateId, this.replace)
         application.patch(`${this.basePath}/:id`, authorize('admin'), this.validateId, this.update)

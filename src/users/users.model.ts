@@ -10,32 +10,35 @@ const userSchema = new mongoose.Schema({
         maxlength: 80,
         minlength: 3
     },
-    login: {
+    fone: {
         type: String,
-        required: true,
-        unique: true,
-        maxlength: 40,
-        minlength: 8
-    },
-    email: {
-        type: String,
-        required: String,
-        unique: true
+        required: [true, 'fone is required'],
+        maxlength: 20,
+        minlength: 11
     },
     password: {
         type: String,
         required: [true, 'password is required'],
-        select: false,
-        minlength: 8
+        maxlength: 20,
+        minlength: 4
+    },
+    email: {
+        type: String,
+        maxlength: 255,
+        minlength: 6
+    },
+    isEmail: {
+        type: Boolean,
+        default: false
+    },
+    profiles: {
+        type: [String],
+        default: ['user']
     },
     isAtivo: {
         type: Boolean,
         required: false,
         default: true
-    },
-    profiles: {
-        type: [String],
-        default: ['user']
     },
     dateUpdate: {
         type: Date,
@@ -51,9 +54,10 @@ const userSchema = new mongoose.Schema({
 
 export interface User extends mongoose.Document {
     name: string,
-    login: string,
-    email: string,
+    fone: string,
     password: string,
+    email: string,
+    isEmail: boolean,
     isAtivo: boolean,
     profiles: String[],
     dateUpdate: Date,
@@ -72,15 +76,15 @@ userSchema.methods.matchesPassword = function (password: string): boolean {
 
 export interface UserModel extends mongoose.Model<User> {
     findByEmail(email: string, projection?: string): Promise<User>,
-    findByEmailOrLogin(login: string, email: string, projection?: string): Promise<User>
+    findByEmailOrFone(fone: string, email: string, projection?: string): Promise<User>
 }
 
 userSchema.statics.findByEmail = function (email: string, projection?: string): Promise<User> {
     return this.findOne({ email }, projection)
 }
 
-userSchema.statics.findByEmailOrLogin = function (login: string, email: string, projection?: string): Promise<User> {
-    return this.findOne({ $or: [{ login }, { email }] }, projection)
+userSchema.statics.findByEmailOrFone = function (fone: string, email: string, projection?: string): Promise<User> {
+    return this.findOne({ $or: [{ fone }, { email }] }, projection)
 }
 
 const hashPassword = function (obj: User, next: express.NextFunction) {

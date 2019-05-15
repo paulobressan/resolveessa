@@ -5,8 +5,8 @@ import { environment } from '../../common/environment'
 import { UnauthorizedError } from '../../common/error';
 
 export const authenticate: express.RequestHandler = (req: express.Request, resp: express.Response, next: express.NextFunction) => {
-    const { login, email, password } = req.body
-    User.findByEmailOrLogin(login, email, '+password')
+    const { fone, email, password } = req.body
+    User.findByEmailOrFone(fone, email, '+password')
         .then(user => {
             if (user && user.matchesPassword(password)) {
                 const token = jwt.sign({ sub: user.email, iss: 'resolveessa' }, environment.secutiry.jwtSecret)

@@ -1,18 +1,6 @@
-import * as mongoose from 'mongoose'
-
-export interface SubCategory extends mongoose.Document {
-    name: string;
-    description: string;
-    urlImage: string;
-}
-
-export interface Category extends mongoose.Document {
-    name: string;
-    description: string;
-    urlImage: string;
-    subCategories: SubCategory[];
-}
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose = require("mongoose");
 const subCategorySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -44,7 +32,6 @@ const subCategorySchema = new mongoose.Schema({
         default: new Date()
     }
 });
-
 const categorySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -82,5 +69,5 @@ const categorySchema = new mongoose.Schema({
         default: new Date()
     }
 });
-
-export const Category = mongoose.model<Category>('Category', categorySchema);
+exports.Category = mongoose.model('Category', categorySchema);
+//# sourceMappingURL=categories.model.js.map
