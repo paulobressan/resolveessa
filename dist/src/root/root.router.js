@@ -5,7 +5,7 @@ class RootRouter extends router_1.Router {
     constructor() {
         super();
         this.routes = [];
-        this.routes.push({ name: 'users', url: '/users' });
+        this.routes.push({ name: 'users', url: '/users' }, { name: 'categories', url: '/categories' }, { name: 'problems', url: '/problems' });
     }
     apply(application) {
         application.get('/', (req, resp, next) => {

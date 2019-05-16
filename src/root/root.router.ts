@@ -7,7 +7,9 @@ class RootRouter extends Router {
     constructor() {
         super()
         this.routes.push(
-            { name: 'users', url: '/users' }
+            { name: 'users', url: '/users' },
+            { name: 'categories', url: '/categories' },
+            { name: 'problems', url: '/problems' }
         )
     }
 
