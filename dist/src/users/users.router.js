@@ -5,6 +5,7 @@ const users_model_1 = require("./users.model");
 const auth_1 = require("../security/auth");
 const auth_handler_1 = require("../security/auth.handler");
 const users_schema_1 = require("./users.schema");
+const error_1 = require("../../common/error");
 class UsersRouter extends model_router_1.ModelRouter {
     constructor() {
         super(users_model_1.User);
@@ -24,6 +25,21 @@ class UsersRouter extends model_router_1.ModelRouter {
             else
                 next();
         };
+        this.validateDuplicateFone = (req, resp, next) => {
+            const { fone, email } = req.body;
+            users_model_1.User.findByEmailOrFone(fone, email)
+                .then(user => {
+                if (user) {
+                    if (user.fone == fone) {
+                        throw new error_1.BadRequest('Fone is used');
+                    }
+                    else if (user.email == email) {
+                        throw new error_1.BadRequest('Email is used');
+                    }
+                }
+                next();
+            }).catch(next);
+        };
         this.on('beforeRender', document => {
             document.password = undefined;
         });
@@ -31,10 +47,10 @@ class UsersRouter extends model_router_1.ModelRouter {
     apply(application) {
         application.get(this.basePath, auth_handler_1.authorize('user'), this.findByEmail, this.findAll);
         application.get(`${this.basePath}/:id`, auth_handler_1.authorize('user'), this.validateId, this.findById);
-        application.post(this.basePath, this.validateSchema(users_schema_1.UsersSchemaSave), this.save);
+        application.post(this.basePath, this.validateSchema(users_schema_1.UsersSchemaSave), this.validateDuplicateFone, this.save);
         application.post(`${this.basePath}/authenticate`, auth_1.authenticate);
-        application.put(`${this.basePath}/:id`, auth_handler_1.authorize('admin'), this.validateId, this.replace);
-        application.patch(`${this.basePath}/:id`, auth_handler_1.authorize('admin'), this.validateId, this.update);
+        application.put(`${this.basePath}/:id`, auth_handler_1.authorize('admin'), this.validateId, this.validateDuplicateFone, this.replace);
+        application.patch(`${this.basePath}/:id`, auth_handler_1.authorize('admin'), this.validateId, this.validateDuplicateFone, this.update);
     }
 }
 exports.usersRouter = new UsersRouter();

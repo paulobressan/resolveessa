@@ -62,7 +62,7 @@ const categorySchema = new mongoose.Schema({
     },
     subCategories: {
         type: [subCategorySchema],
-        select: false,
+        select: true,
         required: false,
         default: []
     },

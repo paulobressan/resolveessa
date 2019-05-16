@@ -76,7 +76,7 @@ userSchema.methods.matchesPassword = function (password: string): boolean {
 
 export interface UserModel extends mongoose.Model<User> {
     findByEmail(email: string, projection?: string): Promise<User>,
-    findByEmailOrFone(fone: string, email: string, projection?: string): Promise<User>
+    findByEmailOrFone(fone: string, email?: string, projection?: string): Promise<User>
 }
 
 userSchema.statics.findByEmail = function (email: string, projection?: string): Promise<User> {
