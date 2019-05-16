@@ -16,7 +16,7 @@
   "jest": {
     "globals": {
       "address": "http://localhost:4001",
-      "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJuYW1lIjoiQWRtaW4iLCJpc3MiOiJlcnAtZm9vZC13ZWIifQ.Fekqj0bydBroZ0s1PAkRhp2yd7C4-tWjJ9cpfkpeqO4"
+      "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpc3MiOiJyZXNvbHZlZXNzYSJ9.V4ps_cWkxayfcGqFk26PZp9fpNfcvDR9LZVwuZ8YxHA"
     },
     "testEnvironment": "node",
     "transform": {

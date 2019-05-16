@@ -37,6 +37,7 @@ export const handlerError = (error, req: express.Request, resp: express.Response
             for (let name in error.errors) {
                 messages.push({ message: error.errors[name].message })
             }
+
             message = {
                 message: 'Validation error while processing your request',
                 errors: messages

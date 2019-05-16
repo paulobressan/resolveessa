@@ -21,14 +21,14 @@ test('post /users', () => {
         .send({
             name: 'Usuario Teste',
             email: 'usuario@email.com',
-            login: 'usuario.teste',
+            fone: '16993187401',
             password: '12345678'
         })
         .then(response => {
             expect(response.status).toBe(200)
             expect(response.body.name).toBe('Usuario Teste')
             expect(response.body.email).toBe('usuario@email.com')
-            expect(response.body.login).toBe('usuario.teste')
+            expect(response.body.fone).toBe('16993187401')
             expect(response.body.isAtivo).toBe(true)
             expect(response.body.password).toBeUndefined()
             expect(response.body.profiles).toBeInstanceOf(Array)
@@ -52,50 +52,23 @@ test('put /users', () => {
         .send({
             name: 'Usuario Teste',
             email: 'usuario2@email.com',
-            login: 'usuario2.teste',
-            password: '12345678'
+            fone: '16993187402',
+            password: '123456789'
         })
         .then(response => request(address)
             .put(`/users/${response.body._id}`)
             .set('Authorization', auth)
             .send({
                 name: 'usuario teste 1',
-                email: 'usuario1@email.com',
-                login: 'usuario.teste1',
-                password: '12345678'
+                email: 'usuario_teste@email.com',
+                fone: '16993187403',
+                password: '123456789'
             }))
         .then(response => {
             expect(response.status).toBe(200)
             expect(response.body.name).toBe('usuario teste 1')
-            expect(response.body.email).toBe('usuario1@email.com')
-            expect(response.body.login).toBe('usuario.teste1')
-            expect(response.body.isAtivo).toBe(true)
-            expect(response.body.password).toBeUndefined()
-            expect(response.body.profiles).toBeInstanceOf(Array)
-        }).catch(fail)
-})
-
-test('patch /users', () => {
-    return request(address)
-        .post('/users')
-        .set('Authorization', auth)
-        .send({
-            name: 'Usuario Teste',
-            email: 'usuario3@email.com',
-            login: 'usuario3.teste',
-            password: '12345678'
-        })
-        .then(response => request(address)
-            .patch(`/users/${response.body._id}`)
-            .set('Authorization', auth)
-            .send({
-                name: 'Usuario2 Teste2',
-            }))
-        .then(response => {
-            expect(response.status).toBe(200)
-            expect(response.body.name).toBe('Usuario2 Teste2')
-            expect(response.body.email).toBe('usuario3@email.com')
-            expect(response.body.login).toBe('usuario3.teste')
+            expect(response.body.email).toBe('usuario_teste@email.com')
+            expect(response.body.fone).toBe('16993187403')
             expect(response.body.isAtivo).toBe(true)
             expect(response.body.password).toBeUndefined()
             expect(response.body.profiles).toBeInstanceOf(Array)

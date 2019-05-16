@@ -51,8 +51,8 @@ class UsersRouter extends ModelRouter<User> {
         application.get(`${this.basePath}/:id`, authorize('user'), this.validateId, this.findById)
         application.post(this.basePath, this.validateSchema(UsersSchemaSave), this.validateDuplicateFone, this.save)
         application.post(`${this.basePath}/authenticate`, authenticate)
-        application.put(`${this.basePath}/:id`, authorize('admin'), this.validateId, this.validateDuplicateFone, this.replace)
-        application.patch(`${this.basePath}/:id`, authorize('admin'), this.validateId, this.validateDuplicateFone, this.update)
+        application.put(`${this.basePath}/:id`, authorize('admin'), this.validateId, this.replace)
+        application.patch(`${this.basePath}/:id`, authorize('admin'), this.validateId, this.update)
     }
 }
 

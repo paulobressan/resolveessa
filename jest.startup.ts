@@ -3,6 +3,8 @@ import { Server } from "./server/server"
 import { environment } from "./common/environment"
 import { usersRouter } from "./src/users/users.router"
 import { User } from "./src/users/users.model"
+import { problemRouter } from './src/problems/problems.router';
+import { categoriesRouter } from './src/categories/categories.router';
 
 let server: Server
 
@@ -13,7 +15,9 @@ const beforeAllTests = () => {
     server = new Server()
 
     return server.bootstrap([
-        usersRouter
+        usersRouter,
+        problemRouter,
+        categoriesRouter
     ])
         .then(server => User.deleteMany({}))
         .then(() => {
@@ -21,7 +25,7 @@ const beforeAllTests = () => {
             admin.name = 'Admin';
             admin.fone = '16993187409'
             admin.email = 'admin@email.com';
-            admin.password = '12345678';
+            admin.password = '123456789';
             admin.profiles = ['admin', 'user'];
             return admin.save();
         })
